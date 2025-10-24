@@ -33,6 +33,7 @@ export default defineConfig([
       '@stylistic/no-multiple-empty-lines': ['error', { 'max': 1 }],
       '@stylistic/no-trailing-spaces': 'error',
       '@stylistic/quotes': ['error', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': 'avoidEscape' }],
+      '@stylistic/jsx-quotes': ['error', 'prefer-single'],
       '@stylistic/semi': ['error', 'always'],
     }
   },
