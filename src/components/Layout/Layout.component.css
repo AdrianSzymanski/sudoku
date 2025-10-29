@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  flex-flow: row wrap;
+  min-block-size: 100dvh;
+}
+
+.layout__main {
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+}
+
+.layout__side {
+  display: grid;
+  place-items: center;
+  flex: 0 0 300px;
+}
