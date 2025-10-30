@@ -1,27 +1,32 @@
 import clsx from 'clsx';
-import type { ICell } from '../../types';
 import './Cell.component.css';
 
-type CellProps = ICell & {
+type CellProps = {
+  given: number;
+  inserted: number;
+  pencilMarks: number[];
+  candidates: number[];
+  colors: number[];
   isSelected?: boolean;
   onClick: () => void;
   onDoubleClick: () => void;
 };
 
 // @TODO: add background colors support to the cell
+// @TODO: don't allow to edit the given value (merge given and inserted?)
 
 export const Cell: React.FC<CellProps> = ({
-  givenValue,
-  insertedValue,
-  cornerValues,
-  centerValues,
-  // colorValues,
+  given,
+  inserted,
+  pencilMarks,
+  candidates,
+  // colors,
   isSelected,
   onClick,
   onDoubleClick,
 }) => {
-  const isGivenValue = givenValue !== 0;
-  const isInsertedValue = insertedValue !== 0;
+  const isGivenValue = given !== 0;
+  const isInsertedValue = inserted !== 0;
 
   return (
     <button
@@ -30,31 +35,32 @@ export const Cell: React.FC<CellProps> = ({
       })}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
+      type='button'
     >
       {isGivenValue && (
         <span className='cell__value cell__value--dark'>
-          {givenValue}
+          {given}
         </span>
       )}
 
       {isInsertedValue && (
         <span className='cell__value'>
-          {insertedValue}
+          {inserted}
         </span>
       )}
 
-      {!isInsertedValue && cornerValues?.map((value, index) => (
+      {!isInsertedValue && pencilMarks?.map((pencilMark, index) => (
         <span
           className='cell__value cell__value--corner'
           key={index}
         >
-          {value}
+          {pencilMark}
         </span>
       ))}
 
-      {!isInsertedValue && centerValues && centerValues.length > 0 && (
+      {!isInsertedValue && candidates && candidates.length > 0 && (
         <span className='cell__value cell__value--center'>
-          {centerValues.join('')}
+          {candidates.join('')}
         </span>
       )}
     </button>
