@@ -1,6 +1,5 @@
-import { Layout } from './components';
-import { Board } from './containers';
-import './App.css';
+import { Layout } from '../../components';
+import { Board } from '../Board';
 
 export const App = () => {
   return (
