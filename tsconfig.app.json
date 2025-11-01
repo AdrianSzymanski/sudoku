@@ -15,6 +15,12 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": {
+      "@components": ["./src/components"],
+      "@store": ["./src/store"],
+      "@types": ["./src/types"],
+      "@ui": ["./src/ui"],
+    },
 
     /* Linting */
     "strict": true,
