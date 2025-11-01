@@ -1,4 +1,4 @@
-import './Layout.component.css';
+import './Layout.ui.css';
 
 type LayoutProps = {
   main: React.ReactNode;

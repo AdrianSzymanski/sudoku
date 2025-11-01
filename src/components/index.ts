@@ -1,3 +1,2 @@
-export * from './Cell';
-export * from './Grid';
-export * from './Layout';
+export * from './App';
+export * from './Board';

@@ -1,4 +1,4 @@
-import './Grid.component.css';
+import './Grid.ui.css';
 
 type GridProps = React.PropsWithChildren;
 

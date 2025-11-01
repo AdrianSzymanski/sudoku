@@ -1,4 +1,4 @@
-import { Layout } from '../../components';
+import { Layout } from '../../ui';
 import { Board } from '../Board';
 
 export const App = () => {

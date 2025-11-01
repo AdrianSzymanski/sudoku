@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { Grid, Cell } from '../../components';
+import { Grid, Cell } from '../../ui';
 import { useStore } from '../../store';
 
 // @TODO: memoize the Cell component?

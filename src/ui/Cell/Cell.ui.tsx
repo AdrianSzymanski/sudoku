@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import './Cell.component.css';
+import './Cell.ui.css';
 
 type CellProps = {
   given: number;
