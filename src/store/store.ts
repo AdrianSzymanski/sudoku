@@ -6,7 +6,7 @@ import type { StoreState, StoreActions, PuzzleFlatTable, PuzzleNestedTable } fro
 // @TODO: do not persist the entire store
 
 const initialState: StoreState = {
-  puzzle: {
+  puzzleData: {
     given: Array(81).fill(0) as PuzzleFlatTable,
     inserted: Array(81).fill(0) as PuzzleFlatTable,
     pencilMarks: Array(81).fill([]) as PuzzleNestedTable,
@@ -47,21 +47,28 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
     undo: () => set(state => ({
       puzzle: state.puzzleHistory[state.puzzleHistory.length],
       puzzleHistory: state.puzzleHistory.slice(0, -1),
-      puzzleFuture: [state.puzzle, ...state.puzzleFuture],
+      puzzleFuture: [state.puzzleData, ...state.puzzleFuture],
     })),
     redo: () => set(state => ({
-      puzzle: state.puzzleFuture[0],
-      puzzleHistory: [...state.puzzleHistory, state.puzzle],
+      puzzleData: state.puzzleFuture[0],
+      puzzleHistory: [...state.puzzleHistory, state.puzzleData],
       puzzleFuture: state.puzzleFuture.slice(1),
     })),
 
     // @NOTE: other
     setNewPuzzle: (puzzle, solution, difficulty) => set({
-      puzzle,
-      puzzleHistory: [],
-      puzzleFuture: [],
+      puzzleData: {
+        given: puzzle,
+        inserted: initialState.puzzleData.inserted,
+        pencilMarks: initialState.puzzleData.pencilMarks,
+        candidates: initialState.puzzleData.candidates,
+        colors: initialState.puzzleData.colors,
+      },
+      puzzleHistory: initialState.puzzleHistory,
+      puzzleFuture: initialState.puzzleFuture,
       solution,
       difficulty,
+      selectedCells: initialState.selectedCells,
     }),
   }),
 )), { name: 'store' })));

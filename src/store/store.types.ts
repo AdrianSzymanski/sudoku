@@ -15,7 +15,7 @@ type PuzzleData = {
 };
 
 export type StoreState = {
-  puzzle: PuzzleData;
+  puzzleData: PuzzleData;
   puzzleHistory: PuzzleData[];
   puzzleFuture: PuzzleData[];
   solution: PuzzleFlatTable;
@@ -31,7 +31,7 @@ export type StoreActions = {
   clearSelectedCells: () => void;
   setSelectionMode: (mode: PuzzleSelectionMode) => void;
   setInputMode: (mode: PuzzleInputMode) => void;
-  setNewPuzzle: (puzzle: PuzzleData, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
+  setNewPuzzle: (puzzle: PuzzleFlatTable, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
   undo: () => void;
   redo: () => void;
 };

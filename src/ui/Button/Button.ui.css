@@ -1,0 +1,13 @@
+.button {
+  --button-color: #000;
+  --button-color-hover: #333;
+  --button-color-active: #666;
+  --button-color-disabled: #999;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: var(--button-color);
+  color: #fff;
+}
