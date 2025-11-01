@@ -1,56 +1,61 @@
-import { useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { Grid, Cell } from '../../components';
-import { getFormattedCells } from './Board.helper';
+import { useStore } from '../../store';
+
+// @TODO: memoize the Cell component?
 
 export const Board: React.FC = () => {
-  // @TODO: generate proper puzzle
-  const data = {
-    difficulty: 'easy',
-    puzzle: [
-      ['1', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '2', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '3', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '4', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '5', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '6', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '7', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '8', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '9'],
-    ],
-    solution: [
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-      ['0', '0', '0', '0', '0', '0', '0', '0', '0'],
-    ],
-  };
-  const cells = getFormattedCells(data);
-  const [selectedCellIndex, setSelectedCellIndex] = useState<number | null>(null);
+  const { puzzle } = useStore();
+  const selectedCells = useStore(state => state.selectedCells);
+  const selectionMode = useStore(state => state.selectionMode);
+  const selectCell = useStore(state => state.selectCell);
+  const clearSelectedCells = useStore(state => state.clearSelectedCells);
+  const setSelectionMode = useStore(state => state.setSelectionMode);
 
   const handleCellClick = (index: number) => {
-    setSelectedCellIndex(index);
+    if (selectionMode === 'single') {
+      clearSelectedCells();
+    }
+    selectCell(index);
   };
 
-  // @TODO: add proper double click logic
   const handleCellDoubleClick = (index: number) => {
+    // @TODO: implement cell double click handling
     console.log('double clicked', index);
   };
 
+  useLayoutEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Control') {
+        setSelectionMode('multiple');
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Control') {
+        setSelectionMode('single');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [setSelectionMode]);
+
   return (
     <Grid>
-      {cells.given.map((_, i) => (
+      {puzzle.given.map((_, i) => (
         <Cell
-          given={cells.given[i]}
-          inserted={cells.inserted[i]}
-          pencilMarks={cells.pencilMarks[i]}
-          candidates={cells.candidates[i]}
-          colors={cells.colors[i]}
-          isSelected={selectedCellIndex === i}
+          given={puzzle.given[i]}
+          inserted={puzzle.inserted[i]}
+          pencilMarks={puzzle.pencilMarks[i]}
+          candidates={puzzle.candidates[i]}
+          colors={puzzle.colors[i]}
+          isSelected={selectedCells.includes(i)}
           onClick={() => handleCellClick(i)}
           onDoubleClick={() => handleCellDoubleClick(i)}
           key={i}
