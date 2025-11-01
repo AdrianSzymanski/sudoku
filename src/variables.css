@@ -1,0 +1,20 @@
+:root {
+  --black: #000000;
+  --black-alpha-10: rgba(0, 0, 0, .1);
+
+  --grey: #686976;
+  --grey-light: #a0a0a0;
+  --grey-alpha-10: rgba(104, 105, 118, .1);
+
+  --white: #ffffff;
+  --white-smoke: #f0f1f4;
+  --white-alpha-20: rgba(255, 255, 255, .2);
+  --white-alpha-80: rgba(255, 255, 255, .8);
+
+  --shadow-elevated:
+    -3px -3px 4px 0 var(--white-alpha-80),
+    3px 3px 4px 0 var(--black-alpha-10);
+  --shadow-depressed:
+    inset -3px -3px 4px 0 var(--white-alpha-80),
+    inset 3px 3px 4px 0 var(--black-alpha-10);
+}
