@@ -40,12 +40,12 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
             state.puzzleCurrentMove.pencilMarks[index].push(value);
           }
           break;
-        case 'candidates':
+        case 'candidate':
           for (const index of selectedCells) {
             state.puzzleCurrentMove.candidates[index].push(value);
           }
           break;
-        case 'colors':
+        case 'color':
           for (const index of selectedCells) {
             state.puzzleCurrentMove.colors[index].push(value);
           }
