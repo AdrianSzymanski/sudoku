@@ -10,10 +10,14 @@ type ActionsProps = {
 export const Actions: React.FC<ActionsProps> = ({
   selectedCells,
 }) => {
-  const setNewPuzzle = useStore(state => state.setNewPuzzle);
-  const makeMove = useStore(state => state.makeMove);
-  const undoMove = useStore(state => state.undoMove);
-  const redoMove = useStore(state => state.redoMove);
+  const {
+    puzzlePastMoves,
+    puzzleFutureMoves,
+    makeMove,
+    undoMove,
+    redoMove,
+    setNewPuzzle,
+  } = useStore(state => state);
 
   const handleStartNewPuzzle = () => {
     const data = getSudoku('expert');
@@ -24,9 +28,21 @@ export const Actions: React.FC<ActionsProps> = ({
   return (
     <>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
-        <Button onClick={handleStartNewPuzzle}>New</Button>
-        <Button onClick={undoMove}>Undo</Button>
-        <Button onClick={redoMove}>Redo</Button>
+        <Button onClick={handleStartNewPuzzle}>
+          New
+          </Button>
+        <Button
+          isDisabled={puzzlePastMoves.length === 0}
+          onClick={undoMove}
+        >
+          Undo
+        </Button>
+        <Button
+          isDisabled={puzzleFutureMoves.length === 0}
+          onClick={redoMove}
+        >
+          Redo
+        </Button>
       </div>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         {/* @TODO: only call makeMove when there is data difference */}

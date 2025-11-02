@@ -1,4 +1,4 @@
-import { useStore, type PuzzleData } from '@store';
+import { useStore } from '@store';
 import { Grid, Cell } from '@ui';
 import { getFormattedCells } from './Board.helper';
 

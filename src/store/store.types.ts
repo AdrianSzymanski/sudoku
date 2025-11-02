@@ -3,7 +3,7 @@ import type { Digit, Tuple } from '../types';
 export type PuzzleFlatTable = Tuple<Digit, 81>;
 export type PuzzleNestedTable = Tuple<Digit[], 81>;
 type PuzzleDifficulty = 'easy' | 'medium' | 'hard' | 'expert'; // @TODO: use type from sudoku-gen
-export type PuzzleValueType = 'normal' | 'pencil' | 'candidates' | 'colors';
+export type PuzzleValueType = 'normal' | 'pencil' | 'candidate' | 'color';
 
 export type PuzzleData = {
   values: PuzzleFlatTable;
