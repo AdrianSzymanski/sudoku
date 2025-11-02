@@ -3,12 +3,19 @@ import { useStore } from '@store';
 import { Button } from '@ui';
 import { getFormattedPuzzleData } from './Actions.helper';
 
-// @TODO: after removing selectedCells from the store,
-// the Actions component has to receive the selected cells as a prop
-// and pass it to makeMove action
+type ActionsProps = {
+  selectedCells: number[];
+  onUndo: () => void;
+  onRedo: () => void;
+};
 
-export const Actions: React.FC = () => {
+export const Actions: React.FC<ActionsProps> = ({
+  selectedCells,
+  onUndo,
+  onRedo,
+}) => {
   const setNewPuzzle = useStore(state => state.setNewPuzzle);
+  const makeMove = useStore(state => state.makeMove);
 
   const handleStartNewPuzzle = () => {
     const data = getSudoku('expert');
@@ -16,20 +23,24 @@ export const Actions: React.FC = () => {
     setNewPuzzle(newPuzzleData.puzzle, newPuzzleData.solution, newPuzzleData.difficulty);
   };
 
-  const handleUndo = () => {
-    console.log('undo');
-  };
-
-  const handleRedo = () => {
-    console.log('redo');
-  };
-
   return (
     <>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         <Button onClick={handleStartNewPuzzle}>New</Button>
-        <Button onClick={handleUndo}>Undo</Button>
-        <Button onClick={handleRedo}>Redo</Button>
+        <Button onClick={onUndo}>Undo</Button>
+        <Button onClick={onRedo}>Redo</Button>
+      </div>
+      <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
+        {/* @TODO: only call makeMove when there is data difference */}
+        <Button onClick={() => makeMove(selectedCells, 'normal', 1)}>1</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 2)}>2</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 3)}>3</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 4)}>4</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 5)}>5</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 6)}>6</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 7)}>7</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 8)}>8</Button>
+        <Button onClick={() => makeMove(selectedCells, 'normal', 9)}>9</Button>
       </div>
     </>
   );
