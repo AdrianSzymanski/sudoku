@@ -4,19 +4,18 @@ import { getFormattedCells } from './Board.helper';
 
 type BoardProps = {
   selectedCells: number[];
-  currentMove: PuzzleData;
   onCellClick: (index: number) => void;
   onCellDoubleClick: (index: number) => void;
 };
 
 export const Board: React.FC<BoardProps> = ({
   selectedCells,
-  currentMove,
   onCellClick,
   onCellDoubleClick,
 }) => {
   const puzzleSetup = useStore(state => state.puzzleSetup);
-  const cells = getFormattedCells(puzzleSetup, currentMove);
+  const puzzleCurrentMove = useStore(state => state.puzzleCurrentMove);
+  const cells = getFormattedCells(puzzleSetup, puzzleCurrentMove);
 
   return (
     <Grid>

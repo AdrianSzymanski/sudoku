@@ -16,10 +16,14 @@ export type StoreState = {
   puzzleSetup: PuzzleFlatTable;
   puzzleSolution: PuzzleFlatTable;
   puzzleDifficulty?: PuzzleDifficulty;
-  puzzleHistory: PuzzleData[];
+  puzzleCurrentMove: PuzzleData;
+  puzzlePastMoves: PuzzleData[];
+  puzzleFutureMoves: PuzzleData[];
 };
 
 export type StoreActions = {
   makeMove: (selectedCells: number[], valueType: PuzzleValueType, value: Digit) => void;
+  undoMove: () => void;
+  redoMove: () => void;
   setNewPuzzle: (puzzle: PuzzleFlatTable, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
 };

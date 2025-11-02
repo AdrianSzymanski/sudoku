@@ -1,17 +1,20 @@
 import { create } from 'zustand';
 import { combine, devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import { current } from 'immer';
 import type { StoreState, StoreActions, PuzzleFlatTable, PuzzleNestedTable } from './store.types';
 
 const initialState: StoreState = {
   puzzleSetup: Array(81).fill(0) as PuzzleFlatTable,
   puzzleSolution: Array(81).fill(0) as PuzzleFlatTable,
-  puzzleHistory: [{
+  puzzleCurrentMove: {
     values: Array(81).fill(0) as PuzzleFlatTable,
     pencilMarks: Array(81).fill([]) as PuzzleNestedTable,
     candidates: Array(81).fill([]) as PuzzleNestedTable,
     colors: Array(81).fill([]) as PuzzleNestedTable,
-  }],
+  },
+  puzzlePastMoves: [],
+  puzzleFutureMoves: [],
 };
 
 export const useStore = create(devtools(persist(immer(combine<StoreState, StoreActions>(
@@ -22,32 +25,54 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
         return state;
       }
 
-      let newMove = state.puzzleHistory[state.puzzleHistory.length - 1];
+      const currentMoveSnapshot = current(state.puzzleCurrentMove);
+      state.puzzlePastMoves.push(currentMoveSnapshot);
+      state.puzzleFutureMoves = [];
 
       switch (valueType) {
         case 'normal':
           for (const index of selectedCells) {
-            newMove.values[index] = value;
+            state.puzzleCurrentMove.values[index] = value;
           }
           break;
         case 'pencil':
           for (const index of selectedCells) {
-            newMove.pencilMarks[index].push(value);
+            state.puzzleCurrentMove.pencilMarks[index].push(value);
           }
           break;
         case 'candidates':
           for (const index of selectedCells) {
-            newMove.candidates[index].push(value);
+            state.puzzleCurrentMove.candidates[index].push(value);
           }
           break;
         case 'colors':
           for (const index of selectedCells) {
-            newMove.colors[index].push(value);
+            state.puzzleCurrentMove.colors[index].push(value);
           }
           break;
       }
+      
+      return state;
+    }),
+    undoMove: () => set(state => {
+      if (state.puzzlePastMoves.length === 0) {
+        return state;
+      }
 
-      state.puzzleHistory.push(newMove);
+      const currentMoveSnapshot = current(state.puzzleCurrentMove);
+      state.puzzleCurrentMove = state.puzzlePastMoves.pop()!;
+      state.puzzleFutureMoves.unshift(currentMoveSnapshot);
+
+      return state;
+    }),
+    redoMove: () => set(state => {
+      if (state.puzzleFutureMoves.length === 0) {
+        return state;
+      }
+
+      const currentMoveSnapshot = current(state.puzzleCurrentMove);
+      state.puzzleCurrentMove = state.puzzleFutureMoves.shift()!;
+      state.puzzlePastMoves.push(currentMoveSnapshot);
 
       return state;
     }),
@@ -55,7 +80,9 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
       state.puzzleSetup = puzzle;
       state.puzzleSolution = solution;
       state.puzzleDifficulty = difficulty;
-      state.puzzleHistory = initialState.puzzleHistory;
+      state.puzzleCurrentMove = initialState.puzzleCurrentMove;
+      state.puzzlePastMoves = initialState.puzzlePastMoves;
+      state.puzzleFutureMoves = initialState.puzzleFutureMoves;
       
       return state;
     }),
