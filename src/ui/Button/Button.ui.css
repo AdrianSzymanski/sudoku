@@ -1,5 +1,6 @@
 .button {
   --button-bg-color: var(--white-smoke);
+  --button-shadow: var(--shadow-elevated);
 }
 
 .button {
@@ -8,18 +9,20 @@
   margin: 0;
   border-radius: 8px;
   padding: 12px;
-  box-shadow: var(--shadow-elevated);
+  box-shadow: var(--button-shadow);
   background-color: var(--button-bg-color);
   cursor: pointer;
 }
 
-.button:active {
-  box-shadow: var(--shadow-depressed);
+.button:disabled {
+  --button-shadow: var(--shadow-disabled);
+  cursor: default;
 }
 
-.button:disabled {
-  box-shadow: var(--shadow-disabled);
-  cursor: default;
+.button:active,
+.button--is-pressed,
+.button--is-pressed:is(:disabled) {
+  --button-shadow: var(--shadow-depressed);
 }
 
 .button__content {
