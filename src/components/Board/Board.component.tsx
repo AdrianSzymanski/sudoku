@@ -1,28 +1,22 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useStore } from '@store';
 import { Grid, Cell } from '@ui';
 import { getFormattedCells } from './Board.helper';
 
-// @TODO: memoize the Cell component?
-
 export const Board: React.FC = () => {
+  const [selectedCells, setSelectedCells] = useState<number[]>([]);
+  const [selectionMode, setSelectionMode] = useState<'single' | 'multiple'>('single');
+
   const puzzleSetup = useStore(state => state.puzzleSetup);
   const puzzleHistory = useStore(state => state.puzzleHistory);
   const currentMove = puzzleHistory[puzzleHistory.length - 1];
   const cells = getFormattedCells(puzzleSetup, currentMove);
   
-  const selectedCells = useStore(state => state.selectedCells);
-  const selectionMode = useStore(state => state.selectionMode);
-  const selectCell = useStore(state => state.selectCell);
-  const clearSelectedCells = useStore(state => state.clearSelectedCells);
-  const setSelectionMode = useStore(state => state.setSelectionMode);
-
   const handleCellClick = (index: number) => {
-    // @TODO: refactor to make only one action
     if (selectionMode === 'single') {
-      clearSelectedCells();
+      setSelectedCells([]);
     }
-    selectCell(index);
+    setSelectedCells(prev => [...prev, index]);
   };
 
   const handleCellDoubleClick = (index: number) => {
@@ -56,6 +50,7 @@ export const Board: React.FC = () => {
 
   return (
     <Grid>
+      {/* @TODO: memoize Cell component? */}
       {cells.map((cell, i) => (
         <Cell
           value={cell.value}
