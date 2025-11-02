@@ -3,8 +3,6 @@ import { combine, devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import type { StoreState, StoreActions, PuzzleFlatTable, PuzzleNestedTable } from './store.types';
 
-// @TODO: do not persist the entire store
-
 const initialState: StoreState = {
   puzzleSetup: Array(81).fill(0) as PuzzleFlatTable,
   puzzleSolution: Array(81).fill(0) as PuzzleFlatTable,
@@ -14,48 +12,19 @@ const initialState: StoreState = {
     candidates: Array(81).fill([]) as PuzzleNestedTable,
     colors: Array(81).fill([]) as PuzzleNestedTable,
   }],
-  selectedCells: [],
-  selectionMode: 'single',
-  inputMode: 'normal',
 };
 
 export const useStore = create(devtools(persist(immer(combine<StoreState, StoreActions>(
   initialState,
   (set) => ({
-    // @NOTE: cell selection
-    selectCell: (index) => set(state => {
-      state.selectedCells.push(index);
-      return state;
-    }),
-    deselectCell: (index) => set(state => {
-      state.selectedCells = state.selectedCells.filter(cell => cell !== index);
-      return state;
-    }),
-    clearSelectedCells: () => set(state => {
-      state.selectedCells = [];
-      return state;
-    }),
-    setSelectionMode: (mode) => set(state => {
-      state.selectionMode = mode;
-      return state;
-    }),
-
-    // @NOTE: cell input
-    setInputMode: (mode) => set(state => {
-      state.inputMode = mode;
-      return state;
-    }),
-    makeMove: (value) => set(state => {
-      const selectedCells = state.selectedCells;
-      const inputMode = state.inputMode;
-
+    makeMove: (selectedCells, valueType, value) => set(state => {
       if (selectedCells.length === 0) {
         return state;
       }
 
       let newMove = state.puzzleHistory[state.puzzleHistory.length - 1];
 
-      switch (inputMode) {
+      switch (valueType) {
         case 'normal':
           for (const index of selectedCells) {
             newMove.values[index] = value;
@@ -82,14 +51,11 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
 
       return state;
     }),
-
-    // @NOTE: other
     setNewPuzzle: (puzzle, solution, difficulty) => set(state => {
       state.puzzleSetup = puzzle;
       state.puzzleSolution = solution;
       state.puzzleDifficulty = difficulty;
       state.puzzleHistory = initialState.puzzleHistory;
-      state.selectedCells = initialState.selectedCells;
       
       return state;
     }),
