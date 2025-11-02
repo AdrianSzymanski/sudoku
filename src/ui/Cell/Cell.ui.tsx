@@ -2,32 +2,30 @@ import clsx from 'clsx';
 import './Cell.ui.css';
 
 type CellProps = {
-  given: number;
-  inserted: number;
+  value: number;
   pencilMarks: number[];
   candidates: number[];
   colors: number[];
+  isInitial?: boolean;
   isSelected?: boolean;
   onClick: () => void;
   onDoubleClick: () => void;
 };
 
 // @TODO: add background colors support to the cell
-// @TODO: don't allow to edit the given value (merge given and inserted?)
 
 export const Cell: React.FC<CellProps> = ({
-  given,
-  inserted,
+  value,
   pencilMarks,
   candidates,
   // colors,
-  isSelected,
+  isInitial = false,
+  isSelected = false,
   onClick,
   onDoubleClick,
 }) => {
-  const isGivenValue = given !== 0;
-  const isInsertedValue = inserted !== 0;
-
+  const isValue = value !== 0;
+  
   return (
     <button
       className={clsx('cell', {
@@ -37,31 +35,34 @@ export const Cell: React.FC<CellProps> = ({
       onDoubleClick={onDoubleClick}
       type='button'
     >
-      {isGivenValue && (
-        <span className='cell__value cell__value--dark'>
-          {given}
-        </span>
-      )}
+      {!isInitial ? (
+        <>
+          {isValue && (
+            <span className='cell__value'>
+              {value}
+            </span>
+          )}
 
-      {isInsertedValue && (
-        <span className='cell__value'>
-          {inserted}
-        </span>
-      )}
+          {!isValue && pencilMarks.map((pencilMark, i) => (
+            <span className='cell__value cell__value--corner' key={i}>
+              {pencilMark}
+            </span>
+          ))}
 
-      {!isInsertedValue && pencilMarks?.map((pencilMark, index) => (
-        <span
-          className='cell__value cell__value--corner'
-          key={index}
-        >
-          {pencilMark}
-        </span>
-      ))}
-
-      {!isInsertedValue && candidates && candidates.length > 0 && (
-        <span className='cell__value cell__value--center'>
-          {candidates.join('')}
-        </span>
+          {!isValue && candidates.length > 0 && (
+            <span className='cell__value cell__value--center'>
+              {candidates.join('')}
+            </span>
+          )}
+        </>
+      ) : (
+        <>
+          {isValue && (
+            <span className='cell__value cell__value--dark'>
+              {value}
+            </span>
+          )}
+        </>
       )}
     </button>
   );

@@ -1,11 +1,16 @@
 import { useLayoutEffect } from 'react';
 import { useStore } from '@store';
 import { Grid, Cell } from '@ui';
+import { getFormattedCells } from './Board.helper';
 
 // @TODO: memoize the Cell component?
 
 export const Board: React.FC = () => {
-  const puzzleData = useStore(state => state.puzzleData);
+  const puzzleSetup = useStore(state => state.puzzleSetup);
+  const puzzleHistory = useStore(state => state.puzzleHistory);
+  const currentMove = puzzleHistory[puzzleHistory.length - 1];
+  const cells = getFormattedCells(puzzleSetup, currentMove);
+  
   const selectedCells = useStore(state => state.selectedCells);
   const selectionMode = useStore(state => state.selectionMode);
   const selectCell = useStore(state => state.selectCell);
@@ -51,13 +56,13 @@ export const Board: React.FC = () => {
 
   return (
     <Grid>
-      {puzzleData.given.map((_, i) => (
+      {cells.map((cell, i) => (
         <Cell
-          given={puzzleData.given[i]}
-          inserted={puzzleData.inserted[i]}
-          pencilMarks={puzzleData.pencilMarks[i]}
-          candidates={puzzleData.candidates[i]}
-          colors={puzzleData.colors[i]}
+          value={cell.value}
+          pencilMarks={cell.pencilMarks}
+          candidates={cell.candidates}
+          colors={cell.colors}
+          isInitial={cell.isInitialValue}
           isSelected={selectedCells.includes(i)}
           onClick={() => handleCellClick(i)}
           onDoubleClick={() => handleCellDoubleClick(i)}
