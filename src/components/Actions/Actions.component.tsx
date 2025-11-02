@@ -5,17 +5,15 @@ import { getFormattedPuzzleData } from './Actions.helper';
 
 type ActionsProps = {
   selectedCells: number[];
-  onUndo: () => void;
-  onRedo: () => void;
 };
 
 export const Actions: React.FC<ActionsProps> = ({
   selectedCells,
-  onUndo,
-  onRedo,
 }) => {
   const setNewPuzzle = useStore(state => state.setNewPuzzle);
   const makeMove = useStore(state => state.makeMove);
+  const undoMove = useStore(state => state.undoMove);
+  const redoMove = useStore(state => state.redoMove);
 
   const handleStartNewPuzzle = () => {
     const data = getSudoku('expert');
@@ -27,8 +25,8 @@ export const Actions: React.FC<ActionsProps> = ({
     <>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         <Button onClick={handleStartNewPuzzle}>New</Button>
-        <Button onClick={onUndo}>Undo</Button>
-        <Button onClick={onRedo}>Redo</Button>
+        <Button onClick={undoMove}>Undo</Button>
+        <Button onClick={redoMove}>Redo</Button>
       </div>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         {/* @TODO: only call makeMove when there is data difference */}
