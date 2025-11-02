@@ -6,20 +6,18 @@ type PuzzleDifficulty = 'easy' | 'medium' | 'hard' | 'expert'; // @TODO: use typ
 type PuzzleSelectionMode = 'single' | 'multiple';
 type PuzzleInputMode = 'normal' | 'pencil' | 'candidates' | 'colors';
 
-type PuzzleData = {
-  given: PuzzleFlatTable;
-  inserted: PuzzleFlatTable;
+export type PuzzleData = {
+  values: PuzzleFlatTable;
   pencilMarks: PuzzleNestedTable;
   candidates: PuzzleNestedTable;
   colors: PuzzleNestedTable;
 };
 
 export type StoreState = {
-  puzzle: PuzzleData;
+  puzzleSetup: PuzzleFlatTable;
+  puzzleSolution: PuzzleFlatTable;
+  puzzleDifficulty?: PuzzleDifficulty;
   puzzleHistory: PuzzleData[];
-  puzzleFuture: PuzzleData[];
-  solution: PuzzleFlatTable;
-  difficulty?: PuzzleDifficulty;
   selectedCells: number[];
   selectionMode: PuzzleSelectionMode;
   inputMode: PuzzleInputMode;
@@ -31,7 +29,6 @@ export type StoreActions = {
   clearSelectedCells: () => void;
   setSelectionMode: (mode: PuzzleSelectionMode) => void;
   setInputMode: (mode: PuzzleInputMode) => void;
-  setNewPuzzle: (puzzle: PuzzleData, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
-  undo: () => void;
-  redo: () => void;
+  makeMove: (value: Digit) => void;
+  setNewPuzzle: (puzzle: PuzzleFlatTable, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
 };

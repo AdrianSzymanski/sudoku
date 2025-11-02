@@ -10,8 +10,6 @@ import { getFormattedPuzzleData } from './Actions.helper';
 export const Actions: React.FC = () => {
   const setNewPuzzle = useStore(state => state.setNewPuzzle);
   const makeMove = useStore(state => state.makeMove);
-  const undo = useStore(state => state.undo);
-  const redo = useStore(state => state.redo);
 
   const handleStartNewPuzzle = () => {
     const data = getSudoku('expert');
@@ -19,12 +17,20 @@ export const Actions: React.FC = () => {
     setNewPuzzle(newPuzzleData.puzzle, newPuzzleData.solution, newPuzzleData.difficulty);
   };
 
+  const handleUndo = () => {
+    console.log('undo');
+  };
+
+  const handleRedo = () => {
+    console.log('redo');
+  };
+
   return (
     <>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         <Button onClick={handleStartNewPuzzle}>New</Button>
-        <Button onClick={undo}>Undo</Button>
-        <Button onClick={redo}>Redo</Button>
+        <Button onClick={handleUndo}>Undo</Button>
+        <Button onClick={handleRedo}>Redo</Button>
       </div>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px' }}>
         <Button onClick={() => makeMove(1)}>1</Button>
