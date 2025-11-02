@@ -6,8 +6,8 @@
   display: inline-block;
   aspect-ratio: 1 / 1;
   margin: 0;
-  padding: 12px;
   border-radius: 8px;
+  padding: 12px;
   box-shadow: var(--shadow-elevated);
   background-color: var(--button-bg-color);
   cursor: pointer;
@@ -15,6 +15,11 @@
 
 .button:active {
   box-shadow: var(--shadow-depressed);
+}
+
+.button:disabled {
+  box-shadow: var(--shadow-disabled);
+  cursor: default;
 }
 
 .button__content {
