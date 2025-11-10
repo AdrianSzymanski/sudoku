@@ -1,7 +1,5 @@
-import { getSudoku } from 'sudoku-gen';
 import { useStore, type PuzzleValueType } from '@store';
 import { Button, NumberPad } from '@ui';
-import { getFormattedPuzzleData } from './Actions.helper';
 
 type ActionsProps = {
   selectedCells: number[];
@@ -20,21 +18,11 @@ export const Actions: React.FC<ActionsProps> = ({
     makeMove,
     undoMove,
     redoMove,
-    setNewPuzzle,
   } = useStore(state => state);
-
-  const handleStartNewPuzzle = () => {
-    const data = getSudoku('expert');
-    const newPuzzleData = getFormattedPuzzleData(data);
-    setNewPuzzle(newPuzzleData.puzzle, newPuzzleData.solution, newPuzzleData.difficulty);
-  };
 
   return (
     <>
       <div style={{ display: 'flex', flexFlow: 'row wrap', gap: '16px', marginRight: '32px' }}>
-        <Button onClick={handleStartNewPuzzle}>
-          New
-          </Button>
         <Button
           isDisabled={puzzlePastMoves.length === 0}
           onClick={undoMove}

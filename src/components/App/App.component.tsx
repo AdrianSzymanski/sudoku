@@ -1,13 +1,23 @@
 import { useLayoutEffect, useState } from 'react';
-import type { PuzzleValueType } from '@store';
-import { Layout } from '@ui';
+import { getSudoku } from 'sudoku-gen';
+import { useStore, type PuzzleValueType } from '@store';
+import { Button, Header, Layout } from '@ui';
 import { Actions } from '../Actions';
 import { Board } from '../Board';
+import { getFormattedPuzzleData } from './App.helper';
 
 export const App = () => {
   const [selectedCells, setSelectedCells] = useState<number[]>([]);
   const [selectionMode, setSelectionMode] = useState<'single' | 'multiple'>('single');
   const [valueType, setValueType] = useState<PuzzleValueType>('normal');
+  const { setNewPuzzle } = useStore(state => state);
+
+  const handleStartNewPuzzle = () => {
+    // @TODO: add difficulty selection
+    const data = getSudoku('expert');
+    const newPuzzleData = getFormattedPuzzleData(data);
+    setNewPuzzle(newPuzzleData.puzzle, newPuzzleData.solution, newPuzzleData.difficulty);
+  };
 
   const handleCellClick = (index: number) => {
     if (selectionMode === 'single') {
@@ -49,6 +59,13 @@ export const App = () => {
 
   return (
     <Layout
+      header={(
+        <Header header='Sudoku'>
+          <Button onClick={handleStartNewPuzzle}>
+            New
+          </Button>
+        </Header>
+      )}
       main={(
         <Board
           selectedCells={selectedCells}
