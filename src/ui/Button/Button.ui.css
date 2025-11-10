@@ -14,6 +14,11 @@
   cursor: pointer;
 }
 
+.button--is-full-width {
+  display: block;
+  aspect-ratio: auto;
+}
+
 .button:disabled {
   --button-shadow: var(--shadow-disabled);
   cursor: default;
