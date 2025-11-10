@@ -1,6 +1,7 @@
 .layout {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   min-block-size: 100dvh;
   background-color: var(--white-smoke);
 }
@@ -9,10 +10,11 @@
   display: grid;
   place-items: center;
   flex: 1 1 auto;
+  padding: 16px;
 }
 
 .layout__side {
-  display: grid;
-  place-items: center;
-  flex: 0 0 300px;
+  display: flex;
+  flex: 0 0 auto;
+  padding: 16px;
 }
