@@ -76,6 +76,13 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
 
       return state;
     }),
+    resetPuzzle: () => set(state => {
+      state.puzzleCurrentMove = initialState.puzzleCurrentMove;
+      state.puzzlePastMoves = initialState.puzzlePastMoves;
+      state.puzzleFutureMoves = initialState.puzzleFutureMoves;
+      
+      return state;
+    }),
     setNewPuzzle: (puzzle, solution, difficulty) => set(state => {
       state.puzzleSetup = puzzle;
       state.puzzleSolution = solution;

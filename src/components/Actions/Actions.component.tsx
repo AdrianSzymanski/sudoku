@@ -18,6 +18,7 @@ export const Actions: React.FC<ActionsProps> = ({
     makeMove,
     undoMove,
     redoMove,
+    resetPuzzle,
   } = useStore(state => state);
 
   return (
@@ -34,6 +35,12 @@ export const Actions: React.FC<ActionsProps> = ({
           onClick={redoMove}
         >
           Redo
+        </Button>
+        <Button
+          onClick={resetPuzzle}
+          isDisabled={puzzlePastMoves.length === 0 && puzzleFutureMoves.length === 0}
+        >
+          Reset
         </Button>
       </div>
       <NumberPad

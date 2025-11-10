@@ -25,5 +25,6 @@ export type StoreActions = {
   makeMove: (selectedCells: number[], valueType: PuzzleValueType, value: Digit) => void;
   undoMove: () => void;
   redoMove: () => void;
+  resetPuzzle: () => void;
   setNewPuzzle: (puzzle: PuzzleFlatTable, solution: PuzzleFlatTable, difficulty: PuzzleDifficulty) => void;
 };
