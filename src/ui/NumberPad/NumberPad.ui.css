@@ -1,0 +1,38 @@
+.number-pad {
+  display: grid;
+  grid-template: 1fr 1fr 1fr 1fr / 1fr 8px 1fr 1fr 1fr;
+  grid-template-areas:
+    "side separator main main main"
+    "side separator main main main"
+    "side separator main main main"
+    "side separator footer footer footer";
+  gap: 12px;
+  margin: auto;
+}
+
+.number-pad__side {
+  display: grid;
+  grid-template: subgrid / subgrid;
+  grid-area: side;
+}
+
+.number-pad__main {
+  display: grid;
+  grid-template: subgrid / subgrid;
+  grid-area: main;
+}
+
+.number-pad__footer {
+  display: grid;
+  grid-area: footer;
+}
+
+.number-pad__separator {
+  grid-area: separator;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--shadow-elevated);
+}
