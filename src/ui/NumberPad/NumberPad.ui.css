@@ -2,10 +2,10 @@
   display: grid;
   grid-template: 1fr 1fr 1fr 1fr / 1fr 8px 1fr 1fr 1fr;
   grid-template-areas:
-    "side separator main main main"
-    "side separator main main main"
-    "side separator main main main"
-    "side separator footer footer footer";
+    'side separator main main main'
+    'side separator main main main'
+    'side separator main main main'
+    'side separator footer footer footer';
   gap: 12px;
   margin: auto;
 }
