@@ -7,7 +7,6 @@
     'side separator main main main'
     'side separator footer footer footer';
   gap: 12px;
-  margin: auto;
 }
 
 .number-pad__side {
