@@ -1,5 +1,5 @@
 import { useStore } from '@store';
-import { Grid, Cell, Spacer, Button } from '@ui';
+import { Button, Cell, Grid, Icon, Spacer } from '@ui';
 import { getFormattedCells } from './Board.helper';
 
 type BoardProps = {
@@ -32,21 +32,21 @@ export const Board: React.FC<BoardProps> = ({
           isFullWidth={true}
           onClick={undoMove}
         >
-          Undo
+          <Icon name='arrowLeft' />
         </Button>
         <Button
           isDisabled={puzzleFutureMoves.length === 0}
           isFullWidth={true}
           onClick={redoMove}
         >
-          Redo
+          <Icon name='arrowRight' />
         </Button>
         <Button
           isDisabled={puzzlePastMoves.length === 0 && puzzleFutureMoves.length === 0}
           isFullWidth={true}
           onClick={resetPuzzle}
         >
-          Reset
+          <Icon name='trash' />
         </Button>
       </Spacer>
       <Grid>
