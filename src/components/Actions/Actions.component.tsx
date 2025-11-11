@@ -50,7 +50,6 @@ export const Actions: React.FC<ActionsProps> = ({
       )}
       main={(
         <>
-          {/* @TODO: only call makeMove when there is data difference */}
           <Button onClick={() => makeMove(selectedCells, valueType, 7)}>7</Button>
           <Button onClick={() => makeMove(selectedCells, valueType, 8)}>8</Button>
           <Button onClick={() => makeMove(selectedCells, valueType, 9)}>9</Button>

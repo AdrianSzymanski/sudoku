@@ -47,7 +47,9 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
           for (const index of selectedCells) {
             const candidates = state.puzzleCurrentMove.candidates[index];
             
-            if (candidates.includes(value)) {
+            if (value === 0) {
+              candidates.splice(0, candidates.length);
+            } else if (candidates.includes(value)) {
               candidates.splice(candidates.indexOf(value), 1);
             } else {
               candidates.push(value);
@@ -60,7 +62,9 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
           for (const index of selectedCells) {
             const pencilMarks = state.puzzleCurrentMove.pencilMarks[index];
 
-            if (pencilMarks.includes(value)) {
+            if (value === 0) {
+              pencilMarks.splice(0, pencilMarks.length);
+            } else if (pencilMarks.includes(value)) {
               pencilMarks.splice(pencilMarks.indexOf(value), 1);
             } else {
               pencilMarks.push(value);
@@ -73,12 +77,14 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
           for (const index of selectedCells) {
             const colors = state.puzzleCurrentMove.colors[index];
             
-            if (colors.includes(value)) {
+            if (value === 0) {
+              colors.splice(0, colors.length);
+            } else if (colors.includes(value)) {
               colors.splice(colors.indexOf(value), 1);
             } else {
               colors.push(value);
             }
-            
+
             colors.sort();
           }
           break;
