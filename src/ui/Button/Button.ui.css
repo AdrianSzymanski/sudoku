@@ -1,6 +1,6 @@
 .button {
-  --button-bg-color: var(--white-smoke);
-  --button-shadow: var(--shadow-elevated);
+  --_button-bg-color: var(--white-smoke);
+  --_button-shadow: var(--shadow-elevated);
 }
 
 .button {
@@ -9,8 +9,8 @@
   margin: 0;
   border-radius: 8px;
   padding: 12px;
-  box-shadow: var(--button-shadow);
-  background-color: var(--button-bg-color);
+  box-shadow: var(--_button-shadow);
+  background-color: var(--_button-bg-color);
   cursor: pointer;
 }
 
@@ -20,14 +20,14 @@
 }
 
 .button:disabled {
-  --button-shadow: var(--shadow-disabled);
+  --_button-shadow: var(--shadow-disabled);
   cursor: default;
 }
 
 .button:active,
 .button--is-pressed,
 .button--is-pressed:is(:disabled) {
-  --button-shadow: var(--shadow-depressed);
+  --_button-shadow: var(--shadow-depressed);
 }
 
 .button__content {

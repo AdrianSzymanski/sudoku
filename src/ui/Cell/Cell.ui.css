@@ -1,16 +1,16 @@
 .cell {
-  --cell-size: 60px;
+  --_cell-size: 60px;
 
-  --cell-border-width--cell: 1px;
-  --cell-border-width--box: 3px;
-  --cell-border-width--outer: 3px;
-  --cell-border-color: #000;
+  --_cell-border-width--cell: 1px;
+  --_cell-border-width--box: 3px;
+  --_cell-border-width--outer: 3px;
+  --_cell-border-color: #000;
 
-  --cell-value-corner-offset: 10%;
-  --cell-value-color: blue;
-  --cell-value-color--dark: #000;
+  --_cell-value-corner-offset: 10%;
+  --_cell-value-color: blue;
+  --_cell-value-color--dark: #000;
 
-  --cell-selected-color: rgb(63, 187, 228);
+  --_cell-selected-color: rgb(63, 187, 228);
 }
 
 .cell {
@@ -19,48 +19,48 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  inline-size: var(--cell-size);
+  inline-size: var(--_cell-size);
   aspect-ratio: 1 / 1;
-  border: 0 solid var(--cell-border-color);
+  border: 0 solid var(--_cell-border-color);
 }
 
 /* @NOTE: cell borders */
 
 .cell:not(:nth-child(9n)) {
-  border-inline-end-width: var(--cell-border-width--cell);
+  border-inline-end-width: var(--_cell-border-width--cell);
 }
 
 .cell:not(:nth-last-child(-n+9)) {
-  border-block-end-width: var(--cell-border-width--cell);
+  border-block-end-width: var(--_cell-border-width--cell);
 }
 
 /* @NOTE: box borders */
 
 .cell:nth-child(3n):not(:nth-child(9n)) {
-  border-inline-end-width: var(--cell-border-width--box);
+  border-inline-end-width: var(--_cell-border-width--box);
 }
 
 .cell:nth-child(n+19):nth-child(-n+27),
 .cell:nth-child(n+46):nth-child(-n+54) {
-  border-block-end-width: var(--cell-border-width--box);
+  border-block-end-width: var(--_cell-border-width--box);
 }
 
 /* @NOTE: outer borders */
 
 .cell:nth-child(9n+1) {
-  border-inline-start-width: var(--cell-border-width--outer);
+  border-inline-start-width: var(--_cell-border-width--outer);
 }
 
 .cell:nth-child(9n) {
-  border-inline-end-width: var(--cell-border-width--outer);
+  border-inline-end-width: var(--_cell-border-width--outer);
 }
 
 .cell:not(:nth-last-child(-n+72)) {
-  border-block-start-width: var(--cell-border-width--outer);
+  border-block-start-width: var(--_cell-border-width--outer);
 }
 
 .cell:nth-last-child(-n+9) {
-  border-block-end-width: var(--cell-border-width--outer);
+  border-block-end-width: var(--_cell-border-width--outer);
 }
 
 /* @NOTE: selected state */
@@ -69,7 +69,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  outline: 5px solid var(--cell-selected-color);
+  outline: 5px solid var(--_cell-selected-color);
   outline-offset: -5px;
 }
 
@@ -82,13 +82,13 @@
 .cell__value {
   font-size: 40px;
   line-height: 1;
-  color: var(--cell-value-color);
+  color: var(--_cell-value-color);
   pointer-events: none;
   user-select: none;
 }
 
 .cell__value--dark {
-  color: var(--cell-value-color--dark);
+  color: var(--_cell-value-color--dark);
 }
 
 .cell__value--center {
@@ -103,33 +103,33 @@
 }
 
 .cell__value--corner:nth-of-type(1) {
-  inset: var(--cell-value-corner-offset) auto auto var(--cell-value-corner-offset);
+  inset: var(--_cell-value-corner-offset) auto auto var(--_cell-value-corner-offset);
 }
 
 .cell__value--corner:nth-of-type(2) {
-  inset: var(--cell-value-corner-offset) var(--cell-value-corner-offset) auto auto;
+  inset: var(--_cell-value-corner-offset) var(--_cell-value-corner-offset) auto auto;
 }
 
 .cell__value--corner:nth-of-type(3) {
-  inset: auto auto var(--cell-value-corner-offset) var(--cell-value-corner-offset);
+  inset: auto auto var(--_cell-value-corner-offset) var(--_cell-value-corner-offset);
 }
 
 .cell__value--corner:nth-of-type(4) {
-  inset: auto var(--cell-value-corner-offset) var(--cell-value-corner-offset) auto;
+  inset: auto var(--_cell-value-corner-offset) var(--_cell-value-corner-offset) auto;
 }
 
 .cell__value--corner:nth-of-type(5) {
-  inset: var(--cell-value-corner-offset) auto auto auto;
+  inset: var(--_cell-value-corner-offset) auto auto auto;
 }
 
 .cell__value--corner:nth-of-type(6) {
-  inset: auto auto var(--cell-value-corner-offset) auto;
+  inset: auto auto var(--_cell-value-corner-offset) auto;
 }
 
 .cell__value--corner:nth-of-type(7) {
-  inset: auto auto auto var(--cell-value-corner-offset);
+  inset: auto auto auto var(--_cell-value-corner-offset);
 }
 
 .cell__value--corner:nth-of-type(8) {
-  inset: auto var(--cell-value-corner-offset) auto auto;
+  inset: auto var(--_cell-value-corner-offset) auto auto;
 }
