@@ -3,12 +3,12 @@ import './Spacer.ui.css';
 
 type SpacerProps = React.PropsWithChildren & {
   stack?: 'row' | 'column';
-  align?: 'start' | 'center' | 'end';
+  align?: 'start' | 'center' | 'end' | 'stretch';
 };
 
 export const Spacer: React.FC<SpacerProps> = ({
   stack = 'row',
-  align = 'center',
+  align = 'stretch',
   children,
 }) => {
   return (
@@ -18,6 +18,7 @@ export const Spacer: React.FC<SpacerProps> = ({
       'spacer--align-start': align === 'start',
       'spacer--align-center': align === 'center',
       'spacer--align-end': align === 'end',
+      'spacer--align-stretch': align === 'stretch',
     })}>
       {children}
     </div>
