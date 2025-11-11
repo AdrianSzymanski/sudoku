@@ -26,3 +26,7 @@
 .spacer--align-end {
   align-items: end;
 }
+
+.spacer--align-stretch {
+  align-items: stretch;
+}
