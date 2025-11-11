@@ -10,9 +10,10 @@
   --black-alpha-80: rgba(0, 0, 0, .8);
   --black-alpha-90: rgba(0, 0, 0, .9);
 
-  --grey: #686976;
-  --grey-light: #a0a0a0;
-  --grey-alpha-10: rgba(104, 105, 118, .1);
+  --gray: #686976;
+  --gray-light: #a0a0a0;
+  --gray-dark: #484848;
+  --gray-alpha-10: rgba(104, 105, 118, .1);
 
   --white: #ffffff;
   --white-smoke-light: #fafafa;
