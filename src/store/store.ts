@@ -32,22 +32,54 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
       switch (valueType) {
         case 'normal':
           for (const index of selectedCells) {
-            state.puzzleCurrentMove.values[index] = value;
-          }
-          break;
-        case 'pencil':
-          for (const index of selectedCells) {
-            state.puzzleCurrentMove.pencilMarks[index].push(value);
+            let currentValue = state.puzzleCurrentMove.values[index];
+
+            if (currentValue === value) {
+              currentValue = 0;
+            } else {
+              currentValue = value;
+            }
+            
+            state.puzzleCurrentMove.values[index] = currentValue;
           }
           break;
         case 'candidate':
           for (const index of selectedCells) {
-            state.puzzleCurrentMove.candidates[index].push(value);
+            const candidates = state.puzzleCurrentMove.candidates[index];
+            
+            if (candidates.includes(value)) {
+              candidates.splice(candidates.indexOf(value), 1);
+            } else {
+              candidates.push(value);
+            }
+            
+            candidates.sort();
+          }
+          break;
+        case 'pencil':
+          for (const index of selectedCells) {
+            const pencilMarks = state.puzzleCurrentMove.pencilMarks[index];
+
+            if (pencilMarks.includes(value)) {
+              pencilMarks.splice(pencilMarks.indexOf(value), 1);
+            } else {
+              pencilMarks.push(value);
+            }
+
+            pencilMarks.sort();
           }
           break;
         case 'color':
           for (const index of selectedCells) {
-            state.puzzleCurrentMove.colors[index].push(value);
+            const colors = state.puzzleCurrentMove.colors[index];
+            
+            if (colors.includes(value)) {
+              colors.splice(colors.indexOf(value), 1);
+            } else {
+              colors.push(value);
+            }
+            
+            colors.sort();
           }
           break;
       }
