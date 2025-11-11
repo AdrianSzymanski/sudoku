@@ -1,0 +1,28 @@
+.spacer {
+  --_spacer-gap: var(--spacer-gap, 12px);
+}
+
+.spacer {
+  display: flex;
+  gap: var(--_spacer-gap);
+}
+
+.spacer--stack-row {
+  flex-direction: row;
+}
+
+.spacer--stack-column {
+  flex-direction: column;
+}
+
+.spacer--align-start {
+  align-items: start;
+}
+
+.spacer--align-center {
+  align-items: center;
+}
+
+.spacer--align-end {
+  align-items: end;
+}

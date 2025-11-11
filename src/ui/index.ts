@@ -4,3 +4,4 @@ export * from './Grid';
 export * from './Header';
 export * from './Layout';
 export * from './NumberPad';
+export * from './Spacer';
