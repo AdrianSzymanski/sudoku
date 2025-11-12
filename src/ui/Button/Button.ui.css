@@ -1,5 +1,4 @@
 .button {
-  --_button-bg-color: var(--white-smoke);
   --_button-shadow: var(--shadow-elevated);
 }
 
@@ -10,7 +9,9 @@
   border-radius: 8px;
   padding: 12px;
   box-shadow: var(--_button-shadow);
-  background-color: var(--_button-bg-color);
+  font-size: 100%;
+  font-weight: 500;
+  color: var(--gray);
   cursor: pointer;
 }
 
@@ -28,11 +29,4 @@
 .button--is-pressed,
 .button--is-pressed:is(:disabled) {
   --_button-shadow: var(--shadow-depressed);
-}
-
-.button__content {
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--gray);
 }

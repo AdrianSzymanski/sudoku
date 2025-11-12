@@ -25,9 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={isDisabled}
       onClick={onClick}
     >
-      <span className='button__content'>
-        {children}
-      </span>
+      {children}
     </button>
   );
 };

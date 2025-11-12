@@ -25,7 +25,7 @@ export const Cell: React.FC<CellProps> = ({
   onDoubleClick,
 }) => {
   const isValue = value !== 0;
-  
+
   return (
     <button
       className={clsx('cell', {

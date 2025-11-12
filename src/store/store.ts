@@ -39,14 +39,14 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
             } else {
               currentValue = value;
             }
-            
+
             state.puzzleCurrentMove.values[index] = currentValue;
           }
           break;
         case 'candidate':
           for (const index of selectedCells) {
             const candidates = state.puzzleCurrentMove.candidates[index];
-            
+
             if (value === 0) {
               candidates.splice(0, candidates.length);
             } else if (candidates.includes(value)) {
@@ -54,7 +54,7 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
             } else {
               candidates.push(value);
             }
-            
+
             candidates.sort();
           }
           break;
@@ -76,7 +76,7 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
         case 'color':
           for (const index of selectedCells) {
             const colors = state.puzzleCurrentMove.colors[index];
-            
+
             if (value === 0) {
               colors.splice(0, colors.length);
             } else if (colors.includes(value)) {
@@ -89,7 +89,7 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
           }
           break;
       }
-      
+
       return state;
     }),
     undoMove: () => set(state => {
@@ -118,7 +118,7 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
       state.puzzleCurrentMove = initialState.puzzleCurrentMove;
       state.puzzlePastMoves = initialState.puzzlePastMoves;
       state.puzzleFutureMoves = initialState.puzzleFutureMoves;
-      
+
       return state;
     }),
     setNewPuzzle: (puzzle, solution, difficulty) => set(state => {
@@ -128,7 +128,7 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
       state.puzzleCurrentMove = initialState.puzzleCurrentMove;
       state.puzzlePastMoves = initialState.puzzlePastMoves;
       state.puzzleFutureMoves = initialState.puzzleFutureMoves;
-      
+
       return state;
     }),
   }),

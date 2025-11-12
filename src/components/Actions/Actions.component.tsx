@@ -1,5 +1,6 @@
 import { useStore, type PuzzleValueType } from '@store';
-import { Button, Icon, NumberPad } from '@ui';
+import type { Digit } from '@types';
+import { Button, ColorTile, Icon, NumberPad } from '@ui';
 import './Actions.component.css';
 
 type ActionsProps = {
@@ -52,15 +53,18 @@ export const Actions: React.FC<ActionsProps> = ({
         )}
         main={(
           <>
-            <Button onClick={() => makeMove(selectedCells, valueType, 7)}>7</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 8)}>8</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 9)}>9</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 4)}>4</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 5)}>5</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 6)}>6</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 1)}>1</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 2)}>2</Button>
-            <Button onClick={() => makeMove(selectedCells, valueType, 3)}>3</Button>
+            {([7, 8, 9, 4, 5, 6, 1, 2, 3] as Digit[]).map((index) => (
+              <Button
+                onClick={() => makeMove(selectedCells, valueType, index)}
+                key={index}
+              >
+                {
+                  valueType !== 'color'
+                    ? index
+                    : <ColorTile colorIndex={index} />
+                }
+              </Button>
+            ))}
           </>
         )}
         footer={(
