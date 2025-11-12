@@ -12,25 +12,30 @@ type CellProps = {
   onDoubleClick: () => void;
 };
 
-// @TODO: add background colors support to the cell
-
 export const Cell: React.FC<CellProps> = ({
   value,
   pencilMarks,
   candidates,
-  // colors,
+  colors,
   isInitial = false,
   isSelected = false,
   onClick,
   onDoubleClick,
 }) => {
   const isValue = value !== 0;
+  // @TODO: implement background in SVG to avoid rasterization issues
+  const conicGradientRanges = colors.reduce((acc, colorIndex, i) => {
+    const step = Math.round(100 / colors.length);
+    let range = `var(--color-tile-${colorIndex}) ${i * step}%, var(--color-tile-${colorIndex}) ${i * step + step - 0.25}%`;
+    return acc ? `${acc}, ${range}` : range;
+  }, '');
 
   return (
     <button
       className={clsx('cell', {
         'cell--is-selected': isSelected,
       })}
+      {...(conicGradientRanges && { style: { background: `conic-gradient(from 20deg, ${conicGradientRanges})` } })}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
       type='button'

@@ -11,13 +11,13 @@ export const IconInputTypeColor: React.FC = () => {
       block-size: 100%;
       background: conic-gradient(
         from 20deg,
-        var(--_color-1) 0%, var(--_color-1) 33.33%,
-        var(--_color-2) 0%, var(--_color-2) 66.66%,
-        var(--_color-3) 0%, var(--_color-3) 100%
+        var(--_color-1) 0%, var(--_color-1) 32.75%,
+        var(--_color-2) 33%, var(--_color-2) 65.75%,
+        var(--_color-3) 66%, var(--_color-3) 100%
       );
     }
   `;
-  
+
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
       <style>{css}</style>
