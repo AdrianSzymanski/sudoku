@@ -1,0 +1,41 @@
+.color-tile {
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+}
+
+.color-tile--1 {
+  background-color: var(--color-tile-1);
+}
+
+.color-tile--2 {
+  background-color: var(--color-tile-2);
+}
+
+.color-tile--3 {
+  background-color: var(--color-tile-3);
+}
+
+.color-tile--4 {
+  background-color: var(--color-tile-4);
+}
+
+.color-tile--5 {
+  background-color: var(--color-tile-5);
+}
+
+.color-tile--6 {
+  background-color: var(--color-tile-6);
+}
+
+.color-tile--7 {
+  background-color: var(--color-tile-7);
+}
+
+.color-tile--8 {
+  background-color: var(--color-tile-8);
+}
+
+.color-tile--9 {
+  background-color: var(--color-tile-9);
+}

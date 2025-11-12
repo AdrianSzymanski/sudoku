@@ -1,5 +1,6 @@
 export * from './Button';
 export * from './Cell';
+export * from './ColorTile';
 export * from './Grid';
 export * from './Header';
 export * from './Icon';
