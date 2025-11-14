@@ -21,6 +21,14 @@ export const useStore = create(devtools(persist(immer(combine<StoreState, StoreA
   initialState,
   (set) => ({
     makeMove: (selectedCells, valueType, value) => set(state => {
+      // @TODO: if there are multiple seleted cells, the move should be the same for all of them.
+      // For examples, seting '1' should add '1' to all selected cells (even if some of them already contain a '1').
+      // If all selected cells already contain a '1', the move should remove the '1' from all selected cells.
+
+      // @TODO: do not set values in the puzzleSetup cells (except for colors).
+
+      // @TODO: fix: deleting counts as a move even if the value doesn't exist.
+      
       if (selectedCells.length === 0) {
         return state;
       }
